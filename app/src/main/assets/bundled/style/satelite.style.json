@@ -1,0 +1,27 @@
+{
+  "version": 8,
+  "name": "Satelite",
+  "icon": "assets://satelite.bmp",
+  "sources": {
+    "satelite": {
+      "type": "raster",
+      "tiles": [
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      ],
+      "minzoom": 0,
+      "maxzoom": 18,
+      "scheme": "xyz",
+      "tileSize": 512
+    }
+  },
+  "sprite": "",
+  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "satelite",
+      "type": "raster",
+      "source": "satelite"
+    }
+  ],
+  "id": "satellite"
+}

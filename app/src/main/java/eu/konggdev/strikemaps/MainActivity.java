@@ -1,0 +1,31 @@
+package eu.konggdev.strikemaps;
+
+import static org.maplibre.android.style.layers.PropertyFactory.lineColor;
+import static org.maplibre.android.style.layers.PropertyFactory.lineWidth;
+
+import eu.konggdev.strikemaps.app.AppController;
+
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+    AppController app;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        app = new AppController(this);
+        app.init();
+    }
+
+    public void logcat(String tag, String log) {
+        Log.i(tag, log);
+    }
+
+    public void logcat(String log) {
+        Log.i("LogcatGeneric", log);
+    }
+}
