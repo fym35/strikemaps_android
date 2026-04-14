@@ -8,6 +8,6 @@ and offline features.
 This Android app has been in development since around January 2026
 <br>
 
-Developed on: https://git.konggdev.eu/fym/strikemaps_android
+Developed on: https://git.konggdev.eu/konggd/strikemaps_android
 <br>
 Mirrored to: https://github.com/fym35/strikemaps_android
