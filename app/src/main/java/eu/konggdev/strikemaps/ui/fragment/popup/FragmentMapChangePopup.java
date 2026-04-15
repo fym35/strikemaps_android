@@ -13,11 +13,13 @@ import eu.konggdev.strikemaps.helper.FileHelper;
 import eu.konggdev.strikemaps.factory.AlertDialogFactory;
 import eu.konggdev.strikemaps.map.MapComponent;
 
+import eu.konggdev.strikemaps.map.style.MapStyle;
 import eu.konggdev.strikemaps.ui.UIComponent;
 import eu.konggdev.strikemaps.ui.element.item.GenericItem;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -35,6 +37,7 @@ public class FragmentMapChangePopup extends Fragment implements Popup {
         this.ui = app.getUi();
         this.region = region;
     }
+
     @Override
     public Integer getRegion() {
         return region;
@@ -50,12 +53,11 @@ public class FragmentMapChangePopup extends Fragment implements Popup {
         //FIXME
         setupButton(view, R.id.closeButton, click(() -> ui.getCurrentScreen().closePopup()));
         setupDragHandle(view, view, () -> ui.getCurrentScreen().closePopup());
-        String[] stylePaths = ArrayUtils.addAll(FileHelper.getAssetFiles("bundled/style", ".style.json", app), FileHelper.getUserFiles("style", ".style.json", app));
-        List<View> views = new ArrayList<>();
+        List<String> stylePaths = new ArrayList<>();
+        stylePaths.addAll(Arrays.asList(FileHelper.getAssetFiles("bundled/style", ".style.json", app)));
+        stylePaths.addAll(Arrays.asList(FileHelper.getUserFiles("style", ".style.json", app)));
         LinearLayout stylesLayout = view.findViewById(R.id.stylesLayout);
-        for(String i : stylePaths) {
-            if(i.startsWith("/storage")) stylesLayout.addView(GenericItem.fromStyle(FileHelper.loadStringFromUserFile(i), app, map).makeView(ui));
-            else stylesLayout.addView(GenericItem.fromStyle(FileHelper.loadStringFromAssetFile(i, app), app, map).makeView(ui));
-        }
+        for (String style : stylePaths)
+            stylesLayout.addView(GenericItem.fromStyle(MapStyle.fromMapLibreJsonFile(style, app), map).makeView(ui));
     }
 }

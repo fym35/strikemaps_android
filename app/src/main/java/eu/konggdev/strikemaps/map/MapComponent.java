@@ -5,6 +5,7 @@ import eu.konggdev.strikemaps.Component;
 import eu.konggdev.strikemaps.factory.AlertDialogFactory;
 import eu.konggdev.strikemaps.helper.UserPrefsHelper;
 import eu.konggdev.strikemaps.map.renderer.implementation.VtmRenderer;
+import eu.konggdev.strikemaps.map.style.MapStyle;
 import org.maplibre.android.geometry.LatLng;
 import org.maplibre.geojson.Feature;
 
@@ -18,7 +19,7 @@ public class MapComponent implements Component  {
     MapRenderer mapRenderer;
     AppController app;
 
-    public String style;
+    public MapStyle style;
     public Map<Class<? extends MapOverlay>, MapOverlay> overlays = new HashMap<>();
     public MapComponent(AppController ref) {
         this.app = ref;
@@ -37,7 +38,7 @@ public class MapComponent implements Component  {
         return new FragmentLayoutContentMap(mapRenderer.getView());
     }
 
-    public void setStyle(String style) {
+    public void setStyle(MapStyle style) {
         this.style = style;
         mapRenderer.reload();
     }

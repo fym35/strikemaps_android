@@ -11,8 +11,8 @@ import eu.konggdev.strikemaps.R;
 import eu.konggdev.strikemaps.app.AppController;
 import eu.konggdev.strikemaps.helper.FileHelper;
 import eu.konggdev.strikemaps.map.MapComponent;
+import eu.konggdev.strikemaps.map.style.MapStyle;
 import eu.konggdev.strikemaps.ui.UIComponent;
-import org.json.JSONObject;
 
 import java.io.InputStream;
 
@@ -21,6 +21,7 @@ public class GenericItem implements UIItem {
     public Bitmap image;
     public Runnable onClick;
     boolean hasImage;
+
     public GenericItem(String refName) {
         this.name = refName;
         hasImage = false;
@@ -42,28 +43,11 @@ public class GenericItem implements UIItem {
         hasImage = true;
     }
 
-    //FIXME: Ugly glue static constructor
-    public final static GenericItem fromStyle(String style, AppController app, MapComponent map) {
-        try {
-            JSONObject styleJson = new JSONObject(style);
-            String name = "Unknown"; //Fallback name
-            if (styleJson.has("name")) name = styleJson.getString("name");
-            if (styleJson.has("icon")) {
-                switch(styleJson.getString("icon").split("//")[0]) {
-                    //TODO: https
-                    case "assets:":
-                        Bitmap icon = BitmapFactory.decodeStream(FileHelper.openAssetStream("bundled/icon/" + styleJson.getString("icon").split("//")[1], app));
-                        return new GenericItem(name, icon, () -> map.setStyle(style));
-                    default:
-                        app.logcat("Unimplemented icon source requested in style: " + name);
-                        return new GenericItem(name, () -> map.setStyle(style));
-                }
-            }
-            return new GenericItem(name, () -> map.setStyle(style));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new GenericItem("Exception!", () -> map.setStyle(style));
-        }
+    public final static GenericItem fromStyle(MapStyle style, MapComponent map) {
+        if(style == null) return new GenericItem("Unknown");
+        if(style.icon != null)
+            return new GenericItem(style.name, style.icon, () -> map.setStyle(style));
+        return new GenericItem(style.name, () -> map.setStyle(style));
     }
     public View makeView(UIComponent spawner) {
         View v = spawner.inflateUi(R.layout.item_generic);

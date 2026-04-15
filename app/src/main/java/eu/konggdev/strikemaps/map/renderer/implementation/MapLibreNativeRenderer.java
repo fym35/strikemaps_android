@@ -4,11 +4,14 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import eu.konggdev.strikemaps.helper.FileHelper;
 import eu.konggdev.strikemaps.helper.UserPrefsHelper;
 import eu.konggdev.strikemaps.map.overlay.MapOverlay;
 import eu.konggdev.strikemaps.map.layer.MapLayer;
 import eu.konggdev.strikemaps.map.renderer.MapRenderer;
+import eu.konggdev.strikemaps.map.style.MapStyle;
 import org.maplibre.android.MapLibre;
 import org.maplibre.android.geometry.LatLng;
 import org.maplibre.android.maps.MapLibreMap;
@@ -44,11 +47,20 @@ public class MapLibreNativeRenderer implements MapRenderer, OnMapReadyCallback {
 
     @Override
     public void reload() {
-        map.setStyle(new Style.Builder().fromJson(controller.style), style -> {
-            for(MapOverlay overlay : controller.overlays.values()) {
-                passLayer(overlay.makeLayer());
-            }
-        });
+        ObjectMapper mapper = new ObjectMapper();
+        MapStyle style = controller.style;
+        try {
+            ObjectNode root = style.metadata.deepCopy();
+            root.set("sources", mapper.valueToTree(style.sources));
+            root.set("layers", style.layerDefinitions);
+            map.setStyle(new Style.Builder().fromJson(mapper.writeValueAsString(root)), intStyle -> {
+                for(MapOverlay overlay : controller.overlays.values()) {
+                    passLayer(overlay.makeLayer());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -65,7 +77,7 @@ public class MapLibreNativeRenderer implements MapRenderer, OnMapReadyCallback {
     public void onMapReady(@NonNull MapLibreMap maplibreMap) {
         this.map = maplibreMap;
 
-        controller.style = FileHelper.loadStringFromAssetFile(UserPrefsHelper.startupMapStyle(app.getPrefs()), app);
+        controller.setStyle(MapStyle.fromMapLibreJsonFile(UserPrefsHelper.startupMapStyle(app.getPrefs()), app));
 
         //I have my own implementation of attribution that credits MapLibre among others, it's not as bad as it looks :)
         map.getUiSettings().setLogoEnabled(false);
@@ -73,6 +85,5 @@ public class MapLibreNativeRenderer implements MapRenderer, OnMapReadyCallback {
 
         map.addOnMapClickListener(point -> controller.onMapClick(point));
         map.addOnMapLongClickListener(point -> controller.onMapLongClick(point));
-        this.reload();
     }
 }
