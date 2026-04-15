@@ -10,13 +10,11 @@ import android.widget.LinearLayout;
 import eu.konggdev.strikemaps.R;
 import eu.konggdev.strikemaps.app.AppController;
 import eu.konggdev.strikemaps.helper.FileHelper;
-import eu.konggdev.strikemaps.factory.AlertDialogFactory;
 import eu.konggdev.strikemaps.map.MapComponent;
 
 import eu.konggdev.strikemaps.map.style.MapStyle;
 import eu.konggdev.strikemaps.ui.UIComponent;
 import eu.konggdev.strikemaps.ui.element.item.GenericItem;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

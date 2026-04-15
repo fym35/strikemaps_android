@@ -1,4 +1,4 @@
-package eu.konggdev.strikemaps.factory;
+package eu.konggdev.strikemaps.ui.factory;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
