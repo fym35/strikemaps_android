@@ -1,4 +1,4 @@
-package eu.konggdev.strikemaps.map.overlay.overlay;
+package eu.konggdev.strikemaps.map.overlay.implementation;
 
 import android.graphics.Color;
 import android.location.Location;
@@ -9,7 +9,7 @@ import eu.konggdev.strikemaps.map.MapComponent;
 import eu.konggdev.strikemaps.map.layer.MapLayer;
 
 import eu.konggdev.strikemaps.map.overlay.MapOverlay;
-import eu.konggdev.strikemaps.provider.LocationDataProvider;
+import eu.konggdev.strikemaps.data.provider.LocationDataProvider;
 import org.maplibre.android.style.layers.CircleLayer;
 import org.maplibre.android.style.layers.Property;
 import org.maplibre.android.style.sources.GeoJsonSource;

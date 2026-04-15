@@ -1,4 +1,4 @@
-package eu.konggdev.strikemaps.map.overlay.overlay;
+package eu.konggdev.strikemaps.map.overlay.implementation;
 
 import eu.konggdev.strikemaps.map.layer.MapLayer;
 import eu.konggdev.strikemaps.map.overlay.MapOverlay;

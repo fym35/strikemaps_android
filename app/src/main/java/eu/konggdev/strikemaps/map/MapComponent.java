@@ -3,7 +3,7 @@ package eu.konggdev.strikemaps.map;
 import java.util.*;
 import eu.konggdev.strikemaps.Component;
 import eu.konggdev.strikemaps.ui.factory.AlertDialogFactory;
-import eu.konggdev.strikemaps.helper.UserPrefsHelper;
+import eu.konggdev.strikemaps.data.helper.UserPrefsHelper;
 import eu.konggdev.strikemaps.map.renderer.implementation.VtmRenderer;
 import eu.konggdev.strikemaps.map.style.MapStyle;
 import org.maplibre.android.geometry.LatLng;

@@ -1,4 +1,4 @@
-package eu.konggdev.strikemaps.helper;
+package eu.konggdev.strikemaps.data.helper;
 
 import android.content.SharedPreferences;
 

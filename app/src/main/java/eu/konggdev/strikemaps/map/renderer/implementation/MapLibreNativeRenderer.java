@@ -6,8 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import eu.konggdev.strikemaps.helper.FileHelper;
-import eu.konggdev.strikemaps.helper.UserPrefsHelper;
+import eu.konggdev.strikemaps.data.helper.UserPrefsHelper;
 import eu.konggdev.strikemaps.map.overlay.MapOverlay;
 import eu.konggdev.strikemaps.map.layer.MapLayer;
 import eu.konggdev.strikemaps.map.renderer.MapRenderer;

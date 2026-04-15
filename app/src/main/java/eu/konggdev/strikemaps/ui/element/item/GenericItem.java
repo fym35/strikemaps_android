@@ -1,20 +1,15 @@
 package eu.konggdev.strikemaps.ui.element.item;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import eu.konggdev.strikemaps.R;
-import eu.konggdev.strikemaps.app.AppController;
-import eu.konggdev.strikemaps.helper.FileHelper;
 import eu.konggdev.strikemaps.map.MapComponent;
 import eu.konggdev.strikemaps.map.style.MapStyle;
 import eu.konggdev.strikemaps.ui.UIComponent;
-
-import java.io.InputStream;
 
 public class GenericItem implements UIItem {
     @NonNull public String name;

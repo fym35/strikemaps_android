@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import eu.konggdev.strikemaps.R;
 import eu.konggdev.strikemaps.app.AppController;
-import eu.konggdev.strikemaps.helper.UserPrefsHelper;
-import eu.konggdev.strikemaps.map.overlay.overlay.LocationOverlay;
+import eu.konggdev.strikemaps.data.helper.UserPrefsHelper;
+import eu.konggdev.strikemaps.map.overlay.implementation.LocationOverlay;
 import eu.konggdev.strikemaps.ui.fragment.popup.FragmentMapChangePopup;
 
 public class FragmentLayoutControls extends Fragment implements Layout {

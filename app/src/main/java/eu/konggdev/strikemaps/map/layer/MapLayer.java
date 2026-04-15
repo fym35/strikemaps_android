@@ -4,7 +4,7 @@ import org.maplibre.android.style.layers.Layer;
 import org.maplibre.android.style.sources.GeoJsonSource;
 
 
-//FIXME: Get rid of reliance on MapLibr
+//FIXME: Get rid of reliance on MapLibre!
 //Most likely implement an "AdditionalMapLayer" or something of that sorts (?)
 public class MapLayer {
     public GeoJsonSource source;

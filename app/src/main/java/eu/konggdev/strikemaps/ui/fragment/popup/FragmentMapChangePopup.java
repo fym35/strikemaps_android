@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 import eu.konggdev.strikemaps.R;
 import eu.konggdev.strikemaps.app.AppController;
-import eu.konggdev.strikemaps.helper.FileHelper;
+import eu.konggdev.strikemaps.data.helper.FileHelper;
 import eu.konggdev.strikemaps.map.MapComponent;
 
 import eu.konggdev.strikemaps.map.style.MapStyle;

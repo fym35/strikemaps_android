@@ -1,4 +1,4 @@
-package eu.konggdev.strikemaps.provider;
+package eu.konggdev.strikemaps.data.provider;
 
 public interface Provider {
 
