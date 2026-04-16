@@ -31,7 +31,7 @@ public class MapStyle {
         try {
             JsonNode root = mapper.readTree(styleContents);
 
-            MapStyle style = new MapStyle();
+            MapStyle style = new MapStyle();	
             style.name = root.path("name").asText();
             style.icon = getIcon(root.path("icon").asText(), app);
 
