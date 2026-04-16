@@ -821,7 +821,7 @@
         "all",
         ["==", "class", "highway"],
         ["==", "subclass", "footway"],
-        ["==", "tunnel", "yes"],
+        ["has", "tunnel"],
         ["!has", "bridge"]
       ],
       "paint": {
@@ -852,7 +852,7 @@
         "all",
         ["==", "class", "highway"],
         ["==", "subclass", "footway"],
-        ["==", "tunnel", "yes"],
+        ["has", "tunnel"],
         ["!has", "bridge"]
       ],
       "paint": {
@@ -885,7 +885,7 @@
         "all",
         ["==", "class", "highway"],
         ["==", "subclass", "footway"],
-        ["==", "tunnel", "yes"],
+        ["has", "tunnel"],
         ["!has", "bridge"]
       ],
       "paint": {
@@ -1351,7 +1351,7 @@
       "filter": [
         "all",
         ["==", "subclass", "primary"],
-        ["==", "tunnel", "yes"],
+        ["has", "tunnel"],
         ["!=", "bridge", "yes"]
       ],
       "layout": {
@@ -1387,7 +1387,7 @@
       "filter": [
         "all",
         ["==", "subclass", "primary"],
-        ["==", "tunnel", "yes"],
+        ["has", "tunnel"],
         ["!=", "bridge", "yes"]
       ],
       "layout": {
@@ -1474,6 +1474,39 @@
       }
     },
     {
+      "id": "Primary bridge outline",
+      "type": "line",
+      "source": "smts",
+      "source-layer": "transportation",
+      "paint": {
+        "line-color": "rgba(0, 0, 0, 1)",
+        "line-width": {
+          "stops": [
+            [9, 6],
+            [11, 2.5],
+            [12, 3.2],
+            [13, 4.2],
+            [15, 7.2],
+            [16, 15.7],
+            [17, 16.5],
+            [18, 17.2],
+            [19, 25.2]
+          ]
+        }
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "primary"],
+        ["==", "bridge", "yes"],
+        ["!has", "tunnel"]
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round",
+        "visibility": "visible"
+      }
+    },
+    {
       "id": "Primary road",
       "type": "line",
       "source": "smts",
@@ -1517,39 +1550,6 @@
       "layout": {
         "line-join": "round",
         "line-cap": "round",
-        "visibility": "visible"
-      }
-    },
-    {
-      "id": "Primary bridge outline",
-      "type": "line",
-      "source": "smts",
-      "source-layer": "transportation",
-      "paint": {
-        "line-color": "rgba(0, 0, 0, 1)",
-        "line-width": {
-          "stops": [
-            [9, 6],
-            [11, 2.5],
-            [12, 3.2],
-            [13, 4.2],
-            [15, 8.2],
-            [16, 12.7],
-            [17, 16.7],
-            [18, 17.2],
-            [19, 25.2]
-          ]
-        }
-      },
-      "filter": [
-        "all",
-        ["==", "subclass", "primary"],
-        ["==", "bridge", "yes"],
-        ["!has", "tunnel"]
-      ],
-      "layout": {
-        "line-cap": "round",
-        "line-join": "round",
         "visibility": "visible"
       }
     },
@@ -1598,7 +1598,7 @@
         "all",
         ["==", "class", "highway"],
         ["==", "subclass", "steps"],
-        ["==", "tunnel", "yes"],
+        ["has", "tunnel"],
         ["!has", "bridge"]
       ],
       "paint": {
@@ -1629,7 +1629,7 @@
         "all",
         ["==", "class", "highway"],
         ["==", "subclass", "steps"],
-        ["==", "tunnel", "yes"],
+        ["has", "tunnel"],
         ["!has", "bridge"]
       ],
       "paint": {
@@ -1662,7 +1662,7 @@
         "all",
         ["==", "class", "highway"],
         ["==", "subclass", "steps"],
-        ["==", "tunnel", "yes"]
+        ["has", "tunnel"]
       ],
       "paint": {
         "line-width": {
@@ -1735,7 +1735,7 @@
           "stops": [
             [14, 6],
             [17, 8],
-            [18, 11]
+            [18, 9]
           ]
         },
         "icon-allow-overlap": true,
@@ -2097,7 +2097,7 @@
         },
         "visibility": "visible"
       },
-      "minzoom": 14,
+      "minzoom": 15.5,
       "paint": {
         "text-color": "rgba(30, 29, 29, 1)",
         "text-halo-width": 1,
@@ -2205,7 +2205,7 @@
       "layout": {"icon-image": "cliff"}
     },
     {
-      "id": "Artwork",
+      "id": "Statue",
       "type": "symbol",
       "source": "smts",
       "source-layer": "poi",
@@ -2214,7 +2214,7 @@
           "Open Sans Italic",
           "Noto Sans Italic"
         ],
-        "icon-image": "artwork",
+        "icon-image": "statue",
         "icon-allow-overlap": true,
         "icon-optional": false,
         "text-field": "{name}",
@@ -2224,8 +2224,8 @@
             [16.4, 5],
             [16.5, 5],
             [16.75, 8],
-            [17.35, 8.25],
-            [20, 11]
+            [17.35, 8.3],
+            [20, 12]
           ]
         },
         "text-offset": [0, 1.89],
@@ -2245,7 +2245,8 @@
       },
       "filter": [
         "all",
-        ["==", "subclass", "artwork"]
+        ["==", "subclass", "artwork"],
+        ["==", "artwork_type", "statue"]
       ],
       "paint": {
         "icon-opacity": 1,
@@ -2256,6 +2257,2887 @@
         "text-halo-width": 1
       },
       "minzoom": 14
+    },
+    {
+      "id": "Vehicle Inspection",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": "vehicle_inspection",
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "vehicle_inspection"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Bureau De Change",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "general_amenity_lz"],
+            [16, "bureau_de_change"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "bureau_de_change"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Money Transfer",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "general_amenity_lz"],
+            [16, "bureau_de_change"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "money_transfer"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Bank",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "general_amenity_lz"],
+            [16, "bank"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "bank"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "ATM",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "general_amenity_lz"],
+            [16, "atm"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "atm"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Public bookcase",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "public_bookcase"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "public_bookcase"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Recording Studio",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "tattoo"],
+            [16.5, "video"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "studio"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(172, 57, 172, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Nightclub",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "nightclub"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "nightclub"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Music Venue",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "tattoo"],
+            [16.5, "music"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "music_venue"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(172, 57, 172, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Events Venue",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "community_centre"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "events_venue"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Conference Centre",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "community_centre"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "conference_centre"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Community Centre",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "community_centre"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "community_centre"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Police",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "police"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "police"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Post Depot",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "post_box"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "post_depot"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Post Box",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "post_box"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "post_box"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Post Office",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "post_office"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "post_office"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "BBQ",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "bbq"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "bbq"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Townhall",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "townhall"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "townhall"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Prison",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "prison"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "prison"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Fire Station",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "fire_station"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "fire_station"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Courthouse",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "courthouse"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "courthouse"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Theatre",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "theatre"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "theatre"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Cinema",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "cinema"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "cinema"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Casino",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "casino"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "casino"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Arts Centre",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "amenity_general_lz"],
+            [16.5, "arts_centre"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "arts_centre"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Artwork",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": "artwork",
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "artwork"],
+        ["!=", "artwork_type", "statue"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(82, 54, 12, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Pub",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "pub"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "pub"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Ice Cream",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "ice_cream"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "ice_cream"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Food Court",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "food_court"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "food_court"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Fast Food",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "fast_food"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "fast_food"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Biergarten",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "biergarten"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "biergarten"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Cafe",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "cafe"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "cafe"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Bar",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "bar"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "bar"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Restaurant",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "chocolate"],
+            [16.5, "restaurant"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.4],
+            [16.25, 0.8],
+            [16.5, 0.85],
+            [16.75, 0.87],
+            [17, 0.9],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "restaurant"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(199, 116, 0, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Charging station",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "charging_station"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "charging_station"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Bicycle Repair Station-copy",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [
+              17,
+              "bicycle_repair_station"
+            ]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "bicycle_repair_station"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Bicycle Rental",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "rental_bicycle"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "bicycle_rental"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Car Sharing",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "rental_car"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "car_sharing"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Car Rental",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "rental_car"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "car_rental"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Boat Storage",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "boat_rental"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "boat_storage"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Boat Rental",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "boat_rental"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "boat_rental"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Fuel",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "fuel"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "fuel"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Taxi",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true,
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [16, "taxi"]
+          ]
+        }
+      },
+      "filter": [
+        "all",
+        ["==", "subclass", "taxi"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Underground Parking entrance",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true,
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [
+              16,
+              "parking_entrance_underground"
+            ]
+          ]
+        }
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "parking_entrance"
+        ],
+        ["==", "parking", "underground"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Multistorey Parking entrance-copy",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true,
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [
+              16,
+              "parking_entrance_multistorey"
+            ]
+          ]
+        }
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "parking_entrance"
+        ],
+        ["==", "parking", "multistorey"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Generic Parking entrance",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true,
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [
+              16,
+              "parking_entrance_multistorey"
+            ]
+          ]
+        }
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "parking_entrance"
+        ],
+        ["!has", "parking"]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Motorcycle Parking",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "motorcycle_parking"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "motorcycle_parking"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Bicycle Parking",
+      "type": "symbol",
+      "source": "smts",
+      "source-layer": "poi",
+      "layout": {
+        "text-font": [
+          "Open Sans Italic",
+          "Noto Sans Italic"
+        ],
+        "icon-image": {
+          "stops": [
+            [14, "highway_amenity_lz"],
+            [17, "bicycle_parking"]
+          ]
+        },
+        "icon-allow-overlap": true,
+        "icon-optional": false,
+        "text-field": "{name}",
+        "text-size": {
+          "stops": [
+            [16, 0],
+            [16.4, 5],
+            [16.5, 5],
+            [16.75, 8],
+            [17.35, 8.3],
+            [20, 12]
+          ]
+        },
+        "text-offset": [0, 1.89],
+        "icon-size": {
+          "stops": [
+            [15, 0.2],
+            [16.25, 0.3],
+            [16.5, 0.4],
+            [16.75, 0.5],
+            [17, 0.7],
+            [17.35, 1],
+            [19, 1.1]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "bicycle_parking"
+        ]
+      ],
+      "paint": {
+        "icon-opacity": 1,
+        "text-translate-anchor": "map",
+        "text-halo-color": "#FFFFFF",
+        "text-color": "rgba(0, 146, 218, 1)",
+        "text-halo-blur": 1,
+        "text-halo-width": 1
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "Compressed Air",
+      "type": "circle",
+      "source": "smts",
+      "source-layer": "poi",
+      "filter": [
+        "all",
+        [
+          "==",
+          "subclass",
+          "compressed_air"
+        ]
+      ],
+      "minzoom": 17.25,
+      "paint": {
+        "circle-radius": 1.2,
+        "circle-color": "rgba(73, 63, 63, 1)"
+      }
     }
   ],
   "id": "strikemaps-classic"
