@@ -4,11 +4,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import eu.konggdev.strikemaps.data.helper.UserPrefsHelper;
 import eu.konggdev.strikemaps.map.overlay.MapOverlay;
-import eu.konggdev.strikemaps.map.layer.MapLayer;
+import eu.konggdev.strikemaps.map.layer.SourcedMapLayer;
 import eu.konggdev.strikemaps.map.renderer.MapRenderer;
 import eu.konggdev.strikemaps.map.style.MapStyle;
 import org.maplibre.android.MapLibre;
@@ -39,25 +41,38 @@ public class MapLibreNativeRenderer implements MapRenderer, OnMapReadyCallback {
         mapView.getMapAsync(this);
     }
 
-    void passLayer(MapLayer layer) {
-        map.getStyle().addSource(layer.source);
-        map.getStyle().addLayer(layer.layer);
-    }
-
     @Override
     public void reload() {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         MapStyle style = controller.style;
         try {
+	        /* Take metadata from MapStyle
+	        everything outside sources, layers */
             ObjectNode root = style.metadata.deepCopy();
-            root.set("sources", mapper.valueToTree(style.sources));
-            root.set("layers", style.layerDefinitions);
-            map.setStyle(new Style.Builder().fromJson(mapper.writeValueAsString(root)), intStyle -> {
-                for(MapOverlay overlay : controller.overlays.values()) {
-                    passLayer(overlay.makeLayer());
-                }
-            });
+            
+    	    //Sources
+            ObjectNode sources = mapper.createObjectNode();
+            style.sources.forEach((k, v) -> sources.set(k, mapper.valueToTree(v)));
+
+	        //Layers
+	        ArrayNode layers = mapper.createArrayNode();
+    	    layers.addAll((ArrayNode) style.layerDefinitions);
+
+	        //Overlays
+	        for (MapOverlay overlay : controller.overlays.values()) {
+                SourcedMapLayer overlayLayer = overlay.makeLayer();
+		        sources.set(overlayLayer.key, mapper.valueToTree(overlayLayer.source));
+		        layers.addAll((ArrayNode) overlayLayer.layer);
+	        }
+
+            //Set all to root
+	        root.set("sources", sources);
+  	        root.set("layers", layers);
+
+            map.setStyle(new Style.Builder().fromJson(mapper.writeValueAsString(root)));
         } catch (Exception e) {
+	    app.logcat("Failed to reload Map");
             e.printStackTrace();
         }
     }

@@ -5,6 +5,7 @@
   "sources": {
     "satelite": {
       "type": "raster",
+      "schema" : "raster",
       "tiles": [
         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
       ],
@@ -14,8 +15,6 @@
       "tileSize": 512
     }
   },
-  "sprite": "",
-  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "satelite",

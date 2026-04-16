@@ -6,18 +6,18 @@ import android.location.LocationListener;
 import androidx.annotation.NonNull;
 import eu.konggdev.strikemaps.app.AppController;
 import eu.konggdev.strikemaps.map.MapComponent;
-import eu.konggdev.strikemaps.map.layer.MapLayer;
-
+import eu.konggdev.strikemaps.map.layer.SourcedMapLayer;
 import eu.konggdev.strikemaps.map.overlay.MapOverlay;
+import eu.konggdev.strikemaps.map.source.MapSource;
+
 import eu.konggdev.strikemaps.data.provider.LocationDataProvider;
-import org.maplibre.android.style.layers.CircleLayer;
-import org.maplibre.android.style.layers.Property;
-import org.maplibre.android.style.sources.GeoJsonSource;
 import org.maplibre.geojson.Feature;
 import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.geojson.Point;
 
-import static org.maplibre.android.style.layers.PropertyFactory.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 public class LocationOverlay implements MapOverlay, LocationListener {
     LocationDataProvider locationDataProvider;
@@ -33,25 +33,55 @@ public class LocationOverlay implements MapOverlay, LocationListener {
     }
 
     @Override
-    public MapLayer makeLayer() {
-        GeoJsonSource source = new GeoJsonSource(
-                "location",
-                FeatureCollection.fromFeatures(new Feature[]{}) // empty
-        );
+    public SourcedMapLayer makeLayer() {
+	MapSource source = new MapSource();
 
-        if (currentLocation != null)
-            source.setGeoJson(Feature.fromGeometry(Point.fromLngLat(currentLocation.getLongitude(), currentLocation.getLatitude())));
+	source.type = "geojson";
 
-        CircleLayer layer = new CircleLayer("location", "location");
-        layer.setProperties(
-                circleRadius(5f),
-                circleColor(Color.parseColor("#1E88E5")),
-                circleStrokeColor(Color.WHITE),
-                circleStrokeWidth(1.5f),
-                circlePitchAlignment(Property.CIRCLE_PITCH_ALIGNMENT_MAP)
-        );
+	ObjectMapper mapper = new ObjectMapper();
+	try {
+	    ObjectNode data = mapper.createObjectNode();
+	    data.put("type", "Feature");
 
-        return new MapLayer(source, layer);
+	    if(currentLocation != null) {
+	       ObjectNode geometry = mapper.createObjectNode();
+               geometry.put("type", "Point");
+
+	       ArrayNode coordinates = mapper.createArrayNode();
+	       coordinates.add(currentLocation.getLongitude());
+	       coordinates.add(currentLocation.getLatitude());
+
+	       geometry.set("coordinates", coordinates);
+	       data.set("geometry", geometry);
+	       data.set("properties", mapper.createObjectNode());
+	    }
+	    source.data = data;
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+
+	ObjectNode layer = mapper.createObjectNode();
+	layer.put("id", "location");
+	layer.put("type", "circle");
+	layer.put("source", "location");
+
+	ObjectNode paint = mapper.createObjectNode();
+	paint.put("circle-radius", 5);
+	paint.put("circle-color", "#1E88E5");
+	paint.put("circle-stroke-color", "#FFFFFF");
+	paint.put("circle-stroke-width", 1.5);
+
+	layer.set("paint", paint);
+
+	ObjectNode layout = mapper.createObjectNode();
+	layout.put("circle-pitch-alignment", "map");
+
+	layer.set("layout", layout);
+	
+	ArrayNode layers = mapper.createArrayNode();
+	layers.add(layer);
+
+        return new SourcedMapLayer("location", source, layers);
     }
 
     @Override

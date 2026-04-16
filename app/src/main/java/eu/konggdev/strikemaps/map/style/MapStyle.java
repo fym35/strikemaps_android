@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import eu.konggdev.strikemaps.app.AppController;
 import eu.konggdev.strikemaps.data.helper.FileHelper;
 import eu.konggdev.strikemaps.map.source.MapSource;
@@ -19,7 +20,7 @@ public class MapStyle {
 
     public JsonNode metadata; // everything except layers + sources
     public Map<String, MapSource> sources;
-    public JsonNode layerDefinitions;  // the "layers" array
+    public ArrayNode layerDefinitions;  // the "layers" array
 
     //FIXME
     public static MapStyle fromMapLibreJsonFile(String filename, AppController app) {
@@ -40,7 +41,7 @@ public class MapStyle {
                     new TypeReference<Map<String, MapSource>>() {}
             );
 
-            style.layerDefinitions = root.path("layers");
+            style.layerDefinitions = root.withArray("layers");
 
             ObjectNode metadata = root.deepCopy();
             metadata.remove("layers");

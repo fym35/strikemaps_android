@@ -15,5 +15,6 @@ public interface MapRenderer {
 
     View getView();
 
+    //TODO: Get rid of MapLibre Feature class dependence
     List<Feature> featuresAtPoint(LatLng point);
 }
